@@ -30,13 +30,15 @@
           <div style="margin:10px">
             <h2>Snippets Shortcut</h2>
             <ul>
-              <li>Snippet Title</li>
+              <li v-for="snippet in snippetList"><span id='name'
+                  v-on:click="goElem(snippet.id)">[{{ snippet.language }}] {{ snippet.title }}</span></li>
             </ul>
           </div>
         </v-flex>
         <v-flex xs7>
           <v-card style="margin-top:10px" v-for="snippet in snippetList">
             <v-card-title primary-title>
+              <a v-bind:id='snippet.id'></a>
               <h3 class="headline"> {{ snippet.title }} </h3>
             </v-card-title>
             <div style="margin: 10px 20px;">
@@ -233,6 +235,11 @@
         toggleDeleteModal: function (id) {
           this.id = id
           this.dialogDeleteFlag = !this.dialogDeleteFlag
+        },
+
+        // 指定箇所までスクロール
+        goElem: function (id) {
+          document.getElementById(id).scrollIntoView(true)
         },
       }
     })
