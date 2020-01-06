@@ -28,6 +28,8 @@
       <v-layout>
         <v-flex xs5>
           <div style="margin:10px">
+            <h2>Select Language</h2>
+            <v-select v-model='language' :items="languages" label="Language" v-on:change="abstruct"></v-select>
             <h2>Snippets Shortcut</h2>
             <ul>
               <li v-for="snippet in snippetList"><span id='name'
