@@ -14,6 +14,9 @@
   <!-- Vuetify の JavaScript ファイルを CDN から読み込む -->
   <script src="https://cdn.jsdelivr.net/npm/vuetify@1.5/dist/vuetify.js"></script>
 
+  <!-- Markdown形式で記載された入力を、HTML形式に変換して表示させてくれるライブラリ -->
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.9.0/dist/showdown.min.js"></script>
+
   <title>Snippet App</title>
 </head>
 
@@ -51,8 +54,7 @@
               </div>
             </v-card-title>
             <div style="margin: 10px 20px;">
-              <textarea
-                style='width:100%; height:300px; background-color:#efefef; padding:3px'> {{ snippet.contents }} </textarea>
+              <div v-html='showdown.makeHtml(snippet.contents)'></div>
             </div>
 
             <v-card-actions>
@@ -191,6 +193,15 @@
       },
       mounted() {
         this.listSnippet();
+        // showdown.jsのオプション指定
+        options = {
+          headerLevelStart: 3,
+          omitExtraWLInCodeBlocks: true,
+          tables: true,
+          simpleLineBreaks: true,
+          simplifiedAutoLink: true
+        }
+        this.showdown = new showdown.Converter(options)
       },
       methods: {
         listSnippet: function () {
